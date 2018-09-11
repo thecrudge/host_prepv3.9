@@ -6,6 +6,9 @@ They contain a few roles, that will assist in docker clean up should you be inst
 or an already installed cluster that is getting a rebuild. I would suggest running the 
 adhoc/uninstall.yaml first, then run the host_prep.
 
+subscribe_to_repos - Obvious, subscribe to repos. You'll need to add your pool id in 
+the defaults/main.yaml
+
 disable_yum_plugins - I found in one scenerio that one of the yum plugins was set
 to a higher verbosity that kept the deploy_cluster.yaml from completing. The simple
 fix was just to disable the plugins, and re-enble once the install finished.
