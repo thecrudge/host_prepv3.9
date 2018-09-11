@@ -1,0 +1,13 @@
+---
+
+#- name: Attach Pool Id
+#  shell: subscription-manager attach --pool {{ pool_id }}
+
+- name: Refresh Subsciption Manager
+  shell: subscription-manager refresh
+
+- name: Disable all repos
+  shell: subscription-manager repos --disable=*
+
+- name: Subscribe to Required Repos
+  shell: subscription-manager repos --enable="rhel-7-server-rpms" --enable="rhel-7-server-extras-rpms" --enable="rhel-7-server-ose-3.9-rpms" --enable="rhel-7-fast-datapath-rpms" --enable="rhel-7-server-ansible-2.4-rpms" --enable="rhel-7-server-rpms"

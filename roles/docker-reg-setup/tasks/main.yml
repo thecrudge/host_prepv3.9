@@ -1,0 +1,21 @@
+---
+
+- name: "Stop Docker Service"
+  service:
+    name: docker
+    state: stopped
+
+- name: "Delete docker config file"
+  file:
+    path: /etc/sysconfig/docker
+    state: absent
+
+- name: "Configure Docker for Registries"
+  template:
+    src: docker.j2
+    dest: /etc/sysconfig/docker
+
+- name: "Start Docker Service"
+  service:
+    name: docker
+    state: started

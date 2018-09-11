@@ -1,0 +1,7 @@
+---
+
+     - name: Remove self-provisioner from system:authentication
+       command: oc adm policy remove-cluster-role-from-group self-provisioner system:authenticated
+
+     - name: Remove self-provisioner from system:authentication:oauth
+       command: oc adm policy remove-cluster-role-from-group self-provisioner system:authenticated:oauth

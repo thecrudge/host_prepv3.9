@@ -1,0 +1,15 @@
+  minimum-container-ttl-duration:
+    - "48h"
+  maximum-dead-containers-per-container:
+    - "2"
+  maximum-dead-containers:
+    - "40"
+  image-gc-high-threshold:
+    - "85"
+  image-gc-low-threshold:
+    - "80"
+  enforce-node-allocatable:
+    - "pods"
+  eviction-hard:
+    - "memory.available<500Mi"
+    - "nodefs.available<10%"

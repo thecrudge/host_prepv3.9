@@ -1,0 +1,65 @@
+---
+
+- name: "Stop Docker Service"
+  service:
+    name: docker
+    state: stopped
+    enabled: no
+
+- name: "Delete docker-storage"
+  file:
+    path: /etc/sysconfig/docker-storage
+    state: absent
+
+- name: "Delete docker-storage-setup"
+  file:
+    path: /etc/sysconfig/docker-storage-setup"
+    state: absent
+
+- name: "Remove logical volume"
+  lvol:
+    vg: docker-vg
+    lv: docker-pool
+    state: absent
+    force: yes
+
+- name: "Remove volume group"
+  lvg:
+   vg: docker-vg
+   state: absent
+
+- name: "Delete Docker Directory"
+  file:
+    path: /var/lib/docker
+    state: absent
+
+- name: "Check for and register /dev/sdb1"
+  shell: pvs | grep sdb1 | awk '{ print $1 }'
+  register: sdb1
+ 
+- name: "Remove pv"
+  shell: pvremove /dev/sdb1
+  when: sdb1 is defined
+
+- name: "Remove all partitions on /dev/sdb"
+  parted:
+    device: /dev/sdb
+    number: 1
+    state: absent
+
+- name: "Create new partition on /dev/sdb"
+  parted:
+    device: /dev/sdb
+    number: 1
+    state: present 
+
+- name: "Configure Docker Storage File"
+  template:
+    src: docker-storage-setup.j2
+    dest: /etc/sysconfig/docker-storage-setup
+
+- name: "Execute Docker Storage Setup"
+  command: docker-storage-setup
+
+- name: "Extend Docker LVM"
+  command: "lvextend -l +100%FREE /dev/{{ docker_vg }}/docker-pool"

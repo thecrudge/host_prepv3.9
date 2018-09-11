@@ -1,0 +1,20 @@
+kind: LDAPSyncConfig
+apiVersion: v1
+url: ldaps://some.ldap.server.org
+bindDN: CN=bind,OU=Service Accounts,OU=XXX,DC=XXX,DC=ORG
+bindPassword: <Bind DN Password>
+insecure: false
+groupUIDNameMapping:
+    "CN=Admin,OU=XXX,DC=XXX,DC=ORG": Admin
+    "CN=Developer,OU=XXX,DC=XXX,DC=ORG": Developer
+activeDirectory:
+    usersQuery:
+        baseDN: "DC=XXX,DC=ORG"
+        scope: sub
+        derefAliases: never
+        filter: (objectClass=person)
+        pageSize: 0
+    userNameAttributes: [ displayName ]
+    groupMembershipAttributes: [ "memberof:1.2.840.113556.1.4.1941:" ]
+    tolerateMemberOfNotFoundErrors: true
+    tolerateMemberOutOfScopeErrors: true

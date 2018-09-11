@@ -1,0 +1,53 @@
+---
+
+- name: "Install Prerequisite Packages"
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - wget
+    - git
+    - net-tools
+    - bind-utils
+    - iptables-services
+    - bridge-utils
+    - bash-completion
+    - kexec-tools
+    - sos
+    - psacct
+
+- selinux:
+    policy: targeted
+    state: enforcing
+
+- name: "Install atomic utils"
+  yum: 
+    name: atomic-openshift-utils 
+    state: present
+
+- name: "Install Docker"
+  yum:
+    name: docker
+    state: latest 
+  tags:
+    - docker
+
+- name: "Check if Docker Volume Group Exists"
+  stat:
+    path: "/dev/{{ docker_vg }}"
+  register: docker_vg_stat
+  tags:
+    - docker
+
+- include: "docker-storage.yml"
+  when: docker_vg_stat is defined
+  tags:
+    - docker
+
+- name: "Start Docker Service"
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  tags:
+    - docker

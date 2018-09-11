@@ -1,0 +1,4 @@
+---
+
+docker_vg: docker-vg
+docker_block: /dev/sdb

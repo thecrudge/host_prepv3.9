@@ -1,0 +1,12 @@
+---
+
+ - name: host_prep
+   hosts: nodes
+   become: yes
+   become_user: root
+   become_method: sudo
+   roles:
+     - subscribe_to_repos
+     - disable_yum_plugins
+     - host_prep
+     - docker-reg-setup

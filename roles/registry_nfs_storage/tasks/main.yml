@@ -1,0 +1,15 @@
+---
+- name: Install nfs-utils
+  yum:
+    name: nfs-utils
+- name: Mount registry NFS share
+  command: "mount -t nfs {{ openshift_hosted_registry_storage_host }}:{{ openshift_hosted_registry_storage_nfs_directory }} /mnt"
+- name: Make registry volume
+  file:
+    path: "/mnt/{{ openshift_hosted_registry_storage_volume_name }}"
+    state: directory
+    mode: 0775
+    owner: '1001'
+    group: 'root'
+- name: Un-mount NFS share
+  command: "umount /mnt"
