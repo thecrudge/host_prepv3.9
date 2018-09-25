@@ -1,12 +1,12 @@
 kind: LDAPSyncConfig
 apiVersion: v1
-url: ldaps://some.ldap.server.org
-bindDN: CN=bind,OU=Service Accounts,OU=XXX,DC=XXX,DC=ORG
-bindPassword: <Bind DN Password>
+url: ldaps://ldapserver.com
+bindDN: CN=s-openshift,OU=Service Accounts,OU=AD Admins,OU=XXX,DC=XXX,DC=ORG
+bindPassword: XXXXX
 insecure: false
 groupUIDNameMapping:
-    "CN=Admin,OU=XXX,DC=XXX,DC=ORG": Admin
-    "CN=Developer,OU=XXX,DC=XXX,DC=ORG": Developer
+    "CN=ocpAdmin,OU=XXX,OU=XXX,DC=XXX,DC=ORG": ocpAdmin
+    "CN=ocpDeveloper,OU=XXX,OU=XXX,DC=XXX,DC=ORG": ocpDeveloper
 activeDirectory:
     usersQuery:
         baseDN: "DC=XXX,DC=ORG"

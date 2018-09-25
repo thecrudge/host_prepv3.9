@@ -12,4 +12,4 @@
     - "pods"
   eviction-hard:
     - "memory.available<500Mi"
-    - "nodefs.available<10%"
+    - "nodefs.availalbe<10%"

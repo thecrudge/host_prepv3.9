@@ -5,8 +5,8 @@
   become_user: root
   become_method: sudo
   copy:
-    src: /playbooks/roles/ldap_groupsync/files/ldap_groupsync.yml
-    dest: /ldap_groupsync.yml
+    src: /home/rhc/playbooks/roles/ldap_groupsync/files/ldap_groupsync.yml
+    dest: /home/rhc/ldap_groupsync.yml
 
 - name: Copy whitelist.txt to masters[0]
   hosts: masters[0]
@@ -14,8 +14,8 @@
   become_user: root
   become_method: sudo
   copy:
-    src: /playbooks/roles/ldap_groupsync/files/whitelist.txt
-    dest: /whitelist.txt 
+    src: /home/rhc/playbooks/roles/ldap_groupsync/files/whitelist.txt
+    dest: /home/rhc/whitelist.txt 
 
 - name: Setup cronjob for ldap_groupsync
   hosts: masters[0]
@@ -25,11 +25,11 @@
   cron:
     name: "ldap group sync"
     minute: "30"
-    job: "oc adm groups sync --whitelist=/whitelist.txt --sync-config=/ldap_groupsync.yml --confirm"
+    job: "oc adm groups sync --whitelist=/home/rhc/whitelist.txt --sync-config=/home/rhc/ldap_groupsync.yml --confirm"
 
 - name: Run initial group sync
   hosts: masters[0]
   become: yes
   become_user: root
   become_method: sudo
-  shell: oc adm groups sync --whitelist=/whitelist.txt --sync-config=/ldap_groupsync.yml --confirm
+  shell: oc adm groups sync --whitelist=/home/rhc/whitelist.txt --sync-config=/home/rhc/ldap_groupsync.yml --confirm

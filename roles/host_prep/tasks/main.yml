@@ -25,6 +25,13 @@
     name: atomic-openshift-utils 
     state: present
 
+- name: "uninstall docker"
+  yum:
+    name: docker
+    state: absent
+  tags:
+    - docker
+
 - name: "Install Docker"
   yum:
     name: docker

@@ -33,6 +33,9 @@
     path: /var/lib/docker
     state: absent
 
+- name: "Add sdb1 to LVM"
+  shell: pvcreate /dev/sdb1
+
 - name: "Check for and register /dev/sdb1"
   shell: pvs | grep sdb1 | awk '{ print $1 }'
   register: sdb1
