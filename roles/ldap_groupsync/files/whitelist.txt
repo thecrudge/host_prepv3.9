@@ -1,2 +1,2 @@
-CN=ocpAdmin,OU=XXX,OU=XXX,DC=XXX,DC=ORG
-CN=ocpDeveloper,OU=XXX,OU=XXX,DC=XXX,DC=ORG
+CN=ocpAdmin,OU=XXX,DC=ORG
+CN=ocpDeveloper,OU=XXX,DC=ORG

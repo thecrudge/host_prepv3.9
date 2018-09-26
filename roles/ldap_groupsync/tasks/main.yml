@@ -30,6 +30,4 @@
 - name: Run initial group sync
   hosts: masters[0]
   become: yes
-  become_user: root
-  become_method: sudo
   shell: oc adm groups sync --whitelist=/home/rhc/whitelist.txt --sync-config=/home/rhc/ldap_groupsync.yml --confirm

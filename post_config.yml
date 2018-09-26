@@ -16,3 +16,4 @@
   roles:
     - enable_yum_plugins
     - node-config
+    - prometheus-iptables

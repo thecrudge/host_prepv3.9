@@ -2,11 +2,11 @@
 
 - name: Copy add.txt to nodes
   copy:
-    src: playbooks/roles/node-config/files/add.txt
-    dest: add.txt
+    src: /home/rhc/playbooks/roles/node-config/files/add.txt
+    dest: /home/rhc/add.txt
 
 - name: Run sed command to append into node-config.yml
-  shell: sed -i '/kubeletArguments:/r add.txt' /etc/origin/node/node-config.yaml
+  shell: sed -i '/kubeletArguments:/r /home/rhc/add.txt' /etc/origin/node/node-config.yaml
 
 - name: Restart atomic-openshift-node
   shell: systemctl restart atomic-openshift-node

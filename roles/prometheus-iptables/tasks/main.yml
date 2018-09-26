@@ -1,0 +1,6 @@
+---
+- name: Add Iptables Rule for Prometheus
+  shell: iptables -A OS_FIREWALL_ALLOW -p tcp -m state --state NEW -m tcp --dport 9100 -j ACCEPT
+
+- name: Run initial group sync
+  shell: iptables-save 
